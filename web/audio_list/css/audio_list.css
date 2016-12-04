@@ -1,0 +1,61 @@
+.title-container {
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    top: 10%;
+    color: #fff;
+    font-size: 2em;
+}
+.wave-canvas{
+    width: 100%;
+    height: 100%;
+}
+.canvas-container {
+    pointer-events: none;
+    position: absolute;
+    top: 25%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+.audio-dropdown-btn {
+    position: absolute;
+    left: 5%;
+    top: 5%;
+}
+.default-audio-control {
+    position: absolute;
+    top: 90%;
+    left: 30%;
+    width: 40%;
+}
+.control-container {
+
+}
+
+.result-table-container {
+    position: absolute;
+    left: 20%;
+    top: 20%;
+    width: 60%;
+    color: #fff;
+}
+.audio-dropdown-item-normal {
+
+}
+
+.audio-dropdown-item-hover {
+
+}
+
+html,body{
+    box-sizing: border-box;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #51074b;
+
+}

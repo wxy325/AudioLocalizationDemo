@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sample Audio List</title>
+
+    <link rel="stylesheet" type="text/css" href="css/audio_list.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/materialize/dist/css/materialize.min.css">
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="../bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="../libs/vudio.js"></script>
+    <script src="../bower_components/requirejs/require.js"></script>
+
+    <script>
+        requirejs.config({
+            'baseUrl': '',
+            'paths': {
+                'app': './js'
+            }
+        });
+
+//        window.appConfig = {
+//            'serverApplication': 'http://wxy325.tunnel.qydev.com/services',
+//            'showCaptchasTime' : 5
+//        };
+    </script>
+
+    <script src="js/start.js"></script>
+</head>
+
+<body>
+
+    <div class="canvas-container">
+        <canvas id="canvas" class="wave-canvas"></canvas>
+    </div>
+    <div class="control-container">
+
+        <div class="title-container">Audio Localization</div>
+
+        <a class='audio-dropdown-btn dropdown-button btn purple darken-2' href='#' data-activates='audio-dropdown-list'>Change Audio</a>
+        <ul id='audio-dropdown-list' class='dropdown-content'>
+        </ul>
+
+        <div class="result-table-container">
+        <table class="result-table">
+            <thead>
+            <tr>
+                <th data-field="id">Algorithm</th>
+                <th data-field="Result">Result</th>
+            </tr>
+            </thead>
+
+            <tbody class="result-tbody">
+
+            </tbody>
+        </table>
+        </div>
+
+        <audio src="./audios/lecture.mp3" controls="controls" id="audio" class="default-audio-control"></audio>
+        <!--
+        <div>
+            <button class="audio-play-btn">Play</button>
+            <button class="audio-pause-btn">Pause</button>
+        </div>
+        -->
+    </div>
+
+
+</body>
+
+
+</html>
