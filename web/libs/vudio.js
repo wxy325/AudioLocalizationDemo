@@ -102,10 +102,10 @@
             var audioContext = new (window.AudioContext || window.webkitAudioContext || window.mozAudioContext),
                 source = audioContext.createMediaElementSource(this.audioEle),
                 dpr = window.devicePixelRatio || 1;
-
+            this.context = audioContext;
             this.analyser = audioContext.createAnalyser();
             this.meta.spr = audioContext.sampleRate;
-
+            this._source = source;
             source.connect(this.analyser);
             this.analyser.fftSize = this.option.accuracy * 2;
             this.analyser.connect(audioContext.destination);
@@ -119,6 +119,15 @@
             this.context2d.canvas.width = this.width * dpr;
             this.context2d.canvas.height = this.height * dpr;
             this.context2d.scale(dpr, dpr);
+
+        },
+        destroy : function() {
+            this.analyser.disconnect();
+            delete this.analyser;
+            this.context.close();
+            delete this.context;
+            this._source.disconnect();
+            delete this._source;
 
         },
 

@@ -26,10 +26,26 @@ define([], function () {
     };
 
     App.prototype._switchAudio = function (audioIndex) {
+        if (this._canvas$) {
+            this._canvas$.remove();
+        }
+        this._canvas$ = $('<canvas id="canvas" class="wave-canvas"></canvas>')
+        this._canvas = this._canvas$[0];
+        this._canvasContainer$.append(this._canvas$)
+
+        if (this._audio$) {
+            this._audio.pause();
+            this._audio$.remove();
+        }
+
+        this._audio$ = $('<audio controls="controls" id="audio" class="default-audio-control"></audio>');
+        this._audio = this._audio$[0];
         var e = this._audioList[audioIndex];
-        this._audio.pause();
         this._audio$.attr('src', e.path);
-        console.log(audioIndex);
+        this._audio.load();
+        this._audioContainer$.append(this._audio$);
+
+        this._configWave();
     };
 
     App.prototype._configDropdown = function () {
@@ -59,6 +75,13 @@ define([], function () {
         }.bind(this));
     };
     App.prototype._configWave = function (){
+        if (this._vudio) {
+            this._vudio.pause();
+            this._vudio.destroy();
+            delete this._vudio;
+            this._vudio = null;
+        }
+
         var colors = [
             [
                 [0, '#f00'],
@@ -89,7 +112,9 @@ define([], function () {
                 color: colors[0]
             }
         });
+
         vudio.dance();
+        this._vudio = vudio;
     };
 
     App.prototype._init = function () {
@@ -97,30 +122,18 @@ define([], function () {
         this._hookDom();
         this._configDropdown();
         this._configResultTbody();
-        this._configWave();
+        this._switchAudio(0);
     };
 
     App.prototype._hookDom = function () {
-        this._canvas$ = $('#canvas');
-        this._canvas = this._canvas$[0];
-        this._audio$ = $('#audio');
-        this._audio = this._audio$[0];
-        // this._audioPlayBtn$ = $('.audio-play-btn');
-        // this._audioPauseBtn$ = $('.audio-pause-btn');
-        // this._audioPlayBtn$.click(this._AudioPlayBtnClicked.bind(this));
-        // this._audioPauseBtn$.click(this._AudioPauseBtnClicked.bind(this));
+        this._canvasContainer$ = $('.canvas-container');
 
         this._audioDropdownList$ = $('#audio-dropdown-list');
         this._audioDropdownBtn$ = $('.audio-dropdown-btn');
         this._audioResultTbody$ = $('.result-tbody');
+        this._audioContainer$ = $('.audio-container');
     };
 
-    // App.prototype._AudioPlayBtnClicked = function() {
-    //     this._audio.play();
-    // };
-    // App.prototype._AudioPauseBtnClicked = function() {
-    //     this._audio.pause();
-    // };
 
     return App;
 });
