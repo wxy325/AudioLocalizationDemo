@@ -40,6 +40,10 @@ define([], function () {
     };
 
     App.prototype._switchAudio = function (audioIndex) {
+        this._algorithmList.forEach(function(e){
+            this._algorithmResultDom$Map[e.id].text("");
+        }.bind(this));
+
         this._currentAudioIndex = audioIndex;
         if (this._canvas$) {
             this._canvas$.remove();
