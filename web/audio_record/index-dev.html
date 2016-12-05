@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Realtime Audio Localization</title>
+    <style type='text/css'>
+        ul { list-style: none; }
+        #recordingslist audio { display: block; margin-bottom: 10px; }
+    </style>
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./js/recorder.js"></script>
+    <script src="../bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="../libs/vudio.js"></script>
+    <script src="../bower_components/requirejs/require.js"></script>
+    <script>
+        requirejs.config({
+            'baseUrl': '',
+            'paths': {
+                'app': './js'
+            }
+        });
+
+    </script>
+    <script src="js/start.js"></script>
+</head>
+<body>
+
+
+
+<button class="start-record-btn">record</button>
+<button class="stop-record-btn">stop</button>
+
+
+</body>
+</html>
