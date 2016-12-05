@@ -4,7 +4,23 @@ define([], function () {
         this._init();
     };
 
+    location_name = ['Corner Stone',
+        'Dinning hall',
+        'Classroom',
+        'AQ',
+        'Bus Loop',
+        'Gym',
+        'Reflection Pond',
+        'Library'];
+
+    result = {
+        'nn_mfcc' : {'dinning_hall': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'corner_stone': [1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 4, 4], 'gym': [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], 'lake': [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6], 'library': [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7], 'aq': [3, 3, 2, 2, 1, 2, 5, 2, 2, 2, 2, 6, 6, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], 'lecture': [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 2, 2, 2, 2, 2, 2, 2], 'busloop': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0, 0]},
+        'nn_all_features' : {'dinning_hall': [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 4, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1], 'corner_stone': [0, 4, 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 'gym': [5, 5, 5, 5, 5, 5, 5, 5, 3, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5], 'lake': [6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6], 'library': [7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7], 'aq': [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3], 'lecture': [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2], 'busloop': [4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4]}
+    };
+
     App.prototype._initData = function() {
+        this._audioIdList = ['aq', 'busloop', 'corner_stone', 'dinning_hall', 'gym', 'lake', 'lecture', 'library'];
+
         this._audioList = [
             {title: 'AQ', path: './audios/aq.mp3'},
             {title: 'Busloop', path: './audios/busloop.mp3'},
@@ -17,15 +33,14 @@ define([], function () {
         ];
         this._algorithmList = [
             {id : 'nn_mfcc', title : 'Neural Network (MFCC Only)'},
-            {id : 'nn_all_features', title: 'Neural Network (All Feature)'},
-            {id : 'double_cnn', title: 'Double CNN'},
-            {id : 'branch_cnn', title: 'Double CNN with Branch'}
+            {id : 'nn_all_features', title: 'Neural Network With PCA (All Feature)'}
         ];
         this._algorithmResultDom$Map = {};
 
     };
 
     App.prototype._switchAudio = function (audioIndex) {
+        this._currentAudioIndex = audioIndex;
         if (this._canvas$) {
             this._canvas$.remove();
         }
@@ -43,9 +58,25 @@ define([], function () {
         var e = this._audioList[audioIndex];
         this._audio$.attr('src', e.path);
         this._audio.load();
+        this._audio.addEventListener('timeupdate', this._audioTimerUpdate.bind(this));
         this._audioContainer$.append(this._audio$);
 
         this._configWave();
+    };
+
+    App.prototype._audioTimerUpdate = function () {
+        console.log(this._audio.currentTime);
+
+        index = Math.trunc(this._audio.currentTime) - 5;
+        if (index > 0 && index <= 26) {
+            this._algorithmList.forEach(function(e){
+                m = result[e.id];
+                l = m[this._audioIdList[this._currentAudioIndex]][index];
+                this._algorithmResultDom$Map[e.id].text(location_name[l]);
+
+
+            }.bind(this));
+        }
     };
 
     App.prototype._configDropdown = function () {
@@ -75,7 +106,46 @@ define([], function () {
         }.bind(this));
     };
     App.prototype._configWave = function (){
-        this._canvasContainer$
+        if (this._vudio) {
+            this._vudio.pause();
+            this._vudio.destroy();
+            delete this._vudio;
+            this._vudio = null;
+        }
+
+        var colors = [
+            [
+                [0, '#f00'],
+                [0.3, '#f00'],
+                [0.3, '#f90'],
+                [0.7, '#f90'],
+                [0.7, '#ff0'],
+                [1, '#ff0']
+            ],
+            '#ff0',
+            ['#00f', '#06f',' #09f', '#0ff'],
+            ['#fb6d6b', '#c10056',' #a50053', '#51074b'],
+            [
+                [0, '#ff422d'],
+                [0.5, '#ff422d'],
+                [0.5, '#6072ff'],
+                [1, '#6072ff']
+            ]
+        ];
+
+        var vudio = new Vudio(this._audio, this._canvas, {
+            effect: 'waveform',
+            accuracy: 256,
+            width: 1024,
+            height: 600,
+            waveform: {
+                maxHeight : 100,
+                color: colors[0]
+            }
+        });
+
+        vudio.dance();
+        this._vudio = vudio;
     };
 
     App.prototype._init = function () {
