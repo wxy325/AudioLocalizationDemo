@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Realtime Audio Localization</title>
+
+    <link rel="stylesheet" type="text/css" href="css/audio_record.css">
+    <link rel="stylesheet" type="text/css" href="../bower_components/materialize/dist/css/materialize.min.css">
+
+    <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./js/recorder.js"></script>
+    <script src="../bower_components/materialize/dist/js/materialize.min.js"></script>
+    <script src="../libs/vudio_2.js"></script>
+    <script src="../bower_components/requirejs/require.js"></script>
+    <script>
+        requirejs.config({
+            'baseUrl': '',
+            'paths': {
+                'app': './js'
+            }
+        });
+
+    </script>
+    <script src="js/start.js"></script>
+</head>
+<body>
+<div class="canvas-container">
+</div>
+<div class="control-container">
+    <div class="title-container">Realtime Audio Localization</div>
+    <div class="btn-container">
+        <button class="start-record-btn waves-effect waves-light btn purple darken-2">record</button>
+        <div class="stop-btn-container">
+        <button class="stop-record-btn waves-effect waves-light btn purple darken-2" disabled>stop</button>
+        </div>
+    </div>
+    <div class="result-div">Waiting</div>
+</div>
+</body>
+</html>

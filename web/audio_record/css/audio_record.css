@@ -16,10 +16,12 @@ html,body{
     color: #fff;
     font-size: 2em;
 }
+
 .wave-canvas{
     width: 100%;
     height: 100%;
 }
+
 .canvas-container {
     pointer-events: none;
     position: absolute;
@@ -30,33 +32,37 @@ html,body{
     width: 100%;
     height: 100%;
 }
-.audio-dropdown-btn {
-    position: absolute;
-    left: 5%;
-    top: 5%;
-}
-.default-audio-control {
-    position: absolute;
-    top: 90%;
-    left: 30%;
-    width: 40%;
-}
-.control-container {
 
-}
-
-.result-table-container {
-    position: absolute;
-    left: 20%;
-    top: 20%;
-    width: 60%;
+.result-div {
     color: #fff;
 }
-.audio-dropdown-item-normal {
 
+.btn-container {
+    position: absolute;
+    top: 50%;
+    width: 20%;
+    left: 40%;
 }
-
-.audio-dropdown-item-hover {
-
+.start-record-btn {
+    text-align: left;
+    position: absolute;
+    left:0;
 }
-
+.stop-record-btn {
+    text-align: right;
+    position: absolute;
+    right:0;
+}
+.result-div {
+    position: absolute;
+    text-align: center;
+    left: 40%;
+    width: 20%;
+    top:30%;
+    font-size: 1.5em;
+}
+.stop-btn-container {
+    position: absolute;
+    right : 0;
+    display: inline-block;
+}

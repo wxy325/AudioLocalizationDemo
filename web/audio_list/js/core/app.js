@@ -75,46 +75,7 @@ define([], function () {
         }.bind(this));
     };
     App.prototype._configWave = function (){
-        if (this._vudio) {
-            this._vudio.pause();
-            this._vudio.destroy();
-            delete this._vudio;
-            this._vudio = null;
-        }
-
-        var colors = [
-            [
-                [0, '#f00'],
-                [0.3, '#f00'],
-                [0.3, '#f90'],
-                [0.7, '#f90'],
-                [0.7, '#ff0'],
-                [1, '#ff0']
-            ],
-            '#ff0',
-            ['#00f', '#06f',' #09f', '#0ff'],
-            ['#fb6d6b', '#c10056',' #a50053', '#51074b'],
-            [
-                [0, '#ff422d'],
-                [0.5, '#ff422d'],
-                [0.5, '#6072ff'],
-                [1, '#6072ff']
-            ]
-        ];
-
-        var vudio = new Vudio(this._audio, this._canvas, {
-            effect: 'waveform',
-            accuracy: 256,
-            width: 1024,
-            height: 600,
-            waveform: {
-                maxHeight : 100,
-                color: colors[0]
-            }
-        });
-
-        vudio.dance();
-        this._vudio = vudio;
+        this._canvasContainer$
     };
 
     App.prototype._init = function () {
