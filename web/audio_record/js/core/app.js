@@ -146,7 +146,7 @@ define([], function () {
         // Send Request to clear audio
         $.ajax({
             type: 'POST',
-            url: 'http://142.58.185.148:5101/clear_audio',
+            url: 'https://142.58.185.148:5101/clear_audio',
             data: {
                 userId : userId
             },
@@ -165,7 +165,7 @@ define([], function () {
             fd.append('data', blob);
             $.ajax({
                 type: 'POST',
-                url: 'http://142.58.185.148:5101/upload',
+                url: 'https://142.58.185.148:5101/upload',
                 data: fd,
                 processData: false,
                 contentType: false
@@ -179,7 +179,7 @@ define([], function () {
             this._ajaxObj =
             $.ajax({
                 type: 'GET',
-                url: 'http://142.58.185.148:5101/query_result?userId=' + window.userId,
+                url: 'https://142.58.185.148:5101/query_result?userId=' + window.userId,
                 processData: false,
                 contentType: false
             }).done(function(data){

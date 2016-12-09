@@ -34,8 +34,8 @@ define([], function () {
             {title: 'Library', path: './audios/library.mp3'},
         ];
         this._algorithmList = [
-            {id : 'nn_mfcc', title : 'Neural Network (MFCC Only)'},
-            {id : 'nn_all_features', title: 'Neural Network With PCA (All Feature)'},
+            {id : 'nn_mfcc', title : 'MLP (MFCCs Only)'},
+            {id : 'nn_all_features', title: 'MLP with PCA (All Feature)'},
             {id : 'double_cnn', title: 'Double CNN'},
             {id : 'branch_cnn', title: 'Double CNN with Branch'}
         ];
